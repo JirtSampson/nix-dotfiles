@@ -23,7 +23,7 @@
        enable = true;
        enableCompletion = true;
        enableAutosuggestions = true;
-       enablesyntaxHighlighting = true;
+       enableSyntaxHighlighting = true;
       
        shellAliases = {
          ll = "ls -l";
