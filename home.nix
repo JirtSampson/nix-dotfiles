@@ -1,16 +1,51 @@
-{ lib, pkgs, ... }:
+{ config, pkgs, ... }:
 {
   home = {
     packages = with pkgs; [
-      hello
+      tree
     ];
-    
-    # This needs to actually be set to your username
     username = "chris";
     homeDirectory = "/home/chris";
+    stateVersion = "23.11";
     
-   # You do not need to change this if you're reading this in the future.
-   # Don't ever change this after the first build. Don't ask questions.
-   stateVersion = "23.11";
- };
+    #Link dotfiles into place:
+    #Neovim
+#    file = {
+#      ".config/nvim" = {
+#        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/homemgr" ;
+#        recursive = true;
+#      };
+#    };
+  };
+
+   programs = {
+     zsh = {
+       enable = true;
+       enableCompletion = true;
+       enableAutosuggestions.enable = true;
+       syntaxHighlighting.enable = true;
+      
+       shellAliases = {
+         ll = "ls -l";
+         update = "sudo nixos-rebuild switch";
+         vim = "nvim";
+       };
+       history = {
+         size = 10000;
+         path = "/home/chris/.zsh_history";
+      };
+      oh-my-zsh = {
+        enable = true;
+        plugins = [ ];
+        theme = "gruvbox";
+      };
+    };
+    git = {
+      enable = true;
+       aliases = {
+       amend = "commit -a --amend";
+       cob = "checkout -b";
+     };
+    };
+  };
 }
