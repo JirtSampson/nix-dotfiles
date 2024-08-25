@@ -22,8 +22,8 @@
      zsh = {
        enable = true;
        enableCompletion = true;
-       enableAutosuggestions.enable = true;
-       syntaxHighlighting.enable = true;
+       enableAutosuggestions = true;
+       syntaxHighlighting = true;
       
        shellAliases = {
          ll = "ls -l";
