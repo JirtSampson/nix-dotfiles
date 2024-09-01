@@ -42,7 +42,7 @@
     };
     starship = {
       enable = true;
-      setting = pkgs.lib.importTOML "./.config/starship.toml";
+      setting = pkgs.lib.importTOML "./config/starship.toml";
     };
 
     git = {
