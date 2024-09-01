@@ -1,8 +1,5 @@
 { config, pkgs, ... }:
 {
-  #Set default shell
-  users.users.chris.shell = pkgs.zsh;
-  
   home = {
     packages = with pkgs; [
       tree
@@ -43,6 +40,11 @@
         theme = "gruvbox";
       };
     };
+    starship = {
+      enable = true;
+      setting = pkgs.lib.importTOML "./.config/starship.toml";
+    };
+
     git = {
       enable = true;
        aliases = {
