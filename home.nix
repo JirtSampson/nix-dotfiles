@@ -111,11 +111,11 @@
   };
   home.file = {
     ".config/nvim/lua/config/" = {
-      source = ./config/nvim/lua/config/;
+      source = /home/chris/homemgr/config/nvim/lua/config;
       recursive = true;
     };
     ".config/nvim/lua/plugins/" = {
-      source = ./config/nvim/lua/plugins/;
+      source = /home/chris/homemgr/config/nvim/lua/plugins;
       recursive = true;
     };
   };
