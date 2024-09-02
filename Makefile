@@ -2,7 +2,7 @@
 # But you're not copy/pasting, are you?
 .PHONY: update
 update:
-	home-manager switch --flake .#chris
+	home-manager switch --impure --flake .#chris
 
 .PHONY: clean
 clean:
