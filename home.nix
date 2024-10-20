@@ -58,8 +58,8 @@
 	wl-clipboard
       ];
       
-      plugins = with pkgs.vimPlugins; [
-            {
+    plugins = with pkgs.vimPlugins; [
+      {
         plugin = nvim-lspconfig;
         config = toLuaFile ./nvim/plugin/lsp.lua;
       }
@@ -73,9 +73,7 @@
         plugin = gruvbox-nvim;
         config = "colorscheme gruvbox";
       }
-
       neodev-nvim
-
       nvim-cmp 
       {
         plugin = nvim-cmp;
