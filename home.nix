@@ -86,19 +86,13 @@
         plugin = telescope-nvim;
         config = toLuaFile ./nvim/plugin/telescope.lua;
       }
-
       telescope-fzf-native-nvim
-
       cmp_luasnip
       cmp-nvim-lsp
-
       luasnip
       friendly-snippets
-
-
       lualine-nvim
       nvim-web-devicons
-
       {
         plugin = (nvim-treesitter.withPlugins (p: [
           p.tree-sitter-nix
@@ -110,7 +104,6 @@
         ]));
         config = toLuaFile ./nvim/plugin/treesitter.lua;
       }
-
       vim-nix
 
       # {
