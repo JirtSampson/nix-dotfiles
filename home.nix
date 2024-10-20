@@ -17,15 +17,6 @@
     username = "chris";
     homeDirectory = "/home/chris";
     stateVersion = "23.11";
-    
-    #Link dotfiles into place:
-    #Neovim
-#    file = {
-#      ".config/nvim" = {
-#        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/homemgr" ;
-#        recursive = true;
-#      };
-#    };
   };
 
   programs = {
@@ -54,7 +45,7 @@
       enable = true;
       defaultEditor = true;
       extraLuaConfig = ''
-        ${builtins.readFile ./nvim/options.lua}
+        ${builtins.readFile ./config/nvim/options.lua}
       '';
       extraPackages = with pkgs; [
         lua-language-server
@@ -66,7 +57,7 @@
     plugins = with pkgs.vimPlugins; [
       {
         plugin = nvim-lspconfig;
-        config = toLuaFile ./nvim/plugin/lsp.lua;
+        config = toLuaFile ./config/nvim/plugin/lsp.lua;
       }
 
       {
@@ -82,12 +73,12 @@
       nvim-cmp 
       {
         plugin = nvim-cmp;
-        config = toLuaFile ./nvim/plugin/cmp.lua;
+        config = toLuaFile ./config/nvim/plugin/cmp.lua;
       }
 
       {
         plugin = telescope-nvim;
-        config = toLuaFile ./nvim/plugin/telescope.lua;
+        config = toLuaFile ./config/nvim/plugin/telescope.lua;
       }
       telescope-fzf-native-nvim
       cmp_luasnip
@@ -105,7 +96,7 @@
           p.tree-sitter-python
           p.tree-sitter-json
         ]));
-        config = toLuaFile ./nvim/plugin/treesitter.lua;
+        config = toLuaFile ./config/nvim/plugin/treesitter.lua;
       }
       vim-nix
 
@@ -144,12 +135,12 @@
     };
   };
 #home.file = {
-#    ".config/nvim/lua/config/" = {
-#      source = /home/chris/homemgr/config/nvim/lua/config;
+#    ".confi./config/nvim/lua/config/" = {
+#      source = /home/chris/homemgr/confi./config/nvim/lua/config;
 #      recursive = true;
 #    };
-#    ".config/nvim/lua/plugins/" = {
-#      source = /home/chris/homemgr/config/nvim/lua/plugins;
+#    ".confi./config/nvim/lua/plugins/" = {
+#      source = /home/chris/homemgr/confi./config/nvim/lua/plugins;
 #      recursive = true;
 #    };
 #  };
