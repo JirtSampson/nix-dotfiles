@@ -49,34 +49,78 @@
       enable = true;
       defaultEditor = true;
       extraLuaConfig = ''
-        -- NOTE: This will get the OS from Lua:
-        -- print(vim.loop.os_uname().sysname)
-
-        -- setup lazy.nvim
-        local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-        vim.opt.rtp:prepend(lazypath)
-
-        -- hack to deal with bug in telescope-cheat.nvim
-        -- https://github.com/nvim-telescope/telescope-cheat.nvim/issues/7
-        local cheat_dbdir = vim.fn.stdpath "data" .. "/databases"
-        if not vim.loop.fs_stat(cheat_dbdir) then
-          vim.loop.fs_mkdir(cheat_dbdir, 493)
-        end
-
-        -- load additional settings
-        require("config.vim-options")
-        require("lazy").setup("plugins")
-
-        -- tell sqlite.lua where to find the bits it needs
-        vim.g.sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.so'
-
+        ${builtins.readFile ./nvim/options.lua}
       '';
       extraPackages = with pkgs; [
-        gcc    # needed so treesitter can do compiling
-        sqlite # needed by sqlite.lua used by telescope-cheat
+        lua-language-server
+	rnix-lsp
+	xclip
+	wl-clipboard
       ];
-      plugins = [ pkgs.vimPlugins.lazy-nvim ]; # let lazy.nvim manage every other plugin
-    };
+      
+      plugins = with pkgs.vimPlugins; [
+            {
+        plugin = nvim-lspconfig;
+        config = toLuaFile ./nvim/plugin/lsp.lua;
+      }
+
+      {
+        plugin = comment-nvim;
+        config = toLua "require(\"Comment\").setup()";
+      }
+
+      {
+        plugin = gruvbox-nvim;
+        config = "colorscheme gruvbox";
+      }
+
+      neodev-nvim
+
+      nvim-cmp 
+      {
+        plugin = nvim-cmp;
+        config = toLuaFile ./nvim/plugin/cmp.lua;
+      }
+
+      {
+        plugin = telescope-nvim;
+        config = toLuaFile ./nvim/plugin/telescope.lua;
+      }
+
+      telescope-fzf-native-nvim
+
+      cmp_luasnip
+      cmp-nvim-lsp
+
+      luasnip
+      friendly-snippets
+
+
+      lualine-nvim
+      nvim-web-devicons
+
+      {
+        plugin = (nvim-treesitter.withPlugins (p: [
+          p.tree-sitter-nix
+          p.tree-sitter-vim
+          p.tree-sitter-bash
+          p.tree-sitter-lua
+          p.tree-sitter-python
+          p.tree-sitter-json
+        ]));
+        config = toLuaFile ./nvim/plugin/treesitter.lua;
+      }
+
+      vim-nix
+
+      # {
+      #   plugin = vimPlugins.own-onedark-nvim;
+      #   config = "colorscheme onedark";
+      # }
+    ];
+  };
+    
+
     ripgrep.enable = true;
     zsh = {
       enable = true;
@@ -91,17 +135,11 @@
         tree = "eza --tree";
         cat = "bat";
         dig = "dog";
-        find = "fd";
       };
       history = {
         size = 1000000;
         save = 1000000;
         path = "/home/chris/.zsh_history";
-      };
-      oh-my-zsh = {
-        enable = true;
-        plugins = [ ];
-        theme = "gruvbox";
       };
     };
     starship = {
@@ -109,14 +147,14 @@
       settings = pkgs.lib.importTOML "/home/chris/homemgr/config/starship.toml";
     };
   };
-  home.file = {
-    ".config/nvim/lua/config/" = {
-      source = /home/chris/homemgr/config/nvim/lua/config;
-      recursive = true;
-    };
-    ".config/nvim/lua/plugins/" = {
-      source = /home/chris/homemgr/config/nvim/lua/plugins;
-      recursive = true;
-    };
-  };
+#home.file = {
+#    ".config/nvim/lua/config/" = {
+#      source = /home/chris/homemgr/config/nvim/lua/config;
+#      recursive = true;
+#    };
+#    ".config/nvim/lua/plugins/" = {
+#      source = /home/chris/homemgr/config/nvim/lua/plugins;
+#      recursive = true;
+#    };
+#  };
 }
