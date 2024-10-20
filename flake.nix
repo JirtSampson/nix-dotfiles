@@ -18,8 +18,8 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
     in {
-      homeConfigurations = {
-        chris = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."chris" = {
+        inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ ./home.nix ];
 	  extraSpecialArgs = { inherit inputs; };
