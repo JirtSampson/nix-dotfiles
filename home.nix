@@ -19,12 +19,13 @@
     stateVersion = "23.11";
   };
   
-  home.file = {
-    ".config/nvim/plugin" = {
+  # Ensure config files are properly linked
+  xdg.configFile = {
+    "nvim/plugin" = {
       source = ./config/nvim/plugin;
       recursive = true;
     };
-    ".config/nvim/options.lua" = {
+    "nvim/options.lua" = {
       source = ./config/nvim/options.lua;
     };
   };
@@ -48,8 +49,11 @@
     jq.enable = true;
     neovim =  
     let
-    toLua = str: "lua << EOF\n${str}\nEOF\n";
-    toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
+      # Get the directory containing home.nix
+      configDir = ./.;
+      # Function to read files relative to the config directory
+      toLua = str: "lua << EOF\n${str}\nEOF\n";
+      toLuaFile = file: "lua << EOF\n${builtins.readFile (configDir + file)}\nEOF\n";
     in
     {
       enable = true;
