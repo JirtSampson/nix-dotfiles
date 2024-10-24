@@ -1,4 +1,12 @@
 { config, pkgs, inputs, ... }:
+
+let
+  # Define the base config directory
+  configDir = "/home/chris/homemgr";
+  
+  toLua = str: "lua << EOF\n${str}\nEOF\n";
+  toLuaFile = file: "lua << EOF\n${builtins.readFile (configDir + file)}\nEOF\n";
+in
 {
   home = {
     packages = with pkgs; [
@@ -18,15 +26,15 @@
     homeDirectory = "/home/chris";
     stateVersion = "23.11";
   };
-  
-  # Ensure config files are properly linked
+
+  # Link config files to the right location
   xdg.configFile = {
     "nvim/plugin" = {
-      source = /config/nvim/plugin;
+      source = "${configDir}/config/nvim/plugin";
       recursive = true;
     };
     "nvim/options.lua" = {
-      source = /config/nvim/options.lua;
+      source = "${configDir}/config/nvim/options.lua";
     };
   };
 
@@ -47,14 +55,8 @@
         };
     };
     jq.enable = true;
+
     neovim =  
-    let
-      # Get the directory containing home.nix
-      configDir = ./.;
-      # Function to read files relative to the config directory
-      toLua = str: "lua << EOF\n${str}\nEOF\n";
-      toLuaFile = file: "lua << EOF\n${builtins.readFile (configDir + file)}\nEOF\n";
-    in
     {
       enable = true;
       defaultEditor = true;
@@ -148,4 +150,3 @@
       settings = pkgs.lib.importTOML "/home/chris/homemgr/config/starship.toml";
     };
   };
-}
