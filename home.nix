@@ -45,86 +45,83 @@ in
         theme = "gruvbox-dark";
       };
     };
+
     eza.enable = true;
     fzf.enable = true;
+
     git = {
       enable = true;
-        aliases = {
-          amend = "commit -a --ammend";
-          cob = "checkout -b";
-        };
+      aliases = {
+        amend = "commit -a --ammend";
+        cob = "checkout -b";
+      };
     };
+
     jq.enable = true;
 
-    neovim =  
-    {
+    neovim = {
       enable = true;
       defaultEditor = true;
       extraLuaConfig = ''
-        ${builtins.readFile /config/nvim/options.lua}
+        ${builtins.readFile "${configDir}/config/nvim/options.lua"}
       '';
       extraPackages = with pkgs; [
         lua-language-server
-	rnix-lsp
-	xclip
-	wl-clipboard
+        rnix-lsp
+        xclip
+        wl-clipboard
       ];
       
-    plugins = with pkgs.vimPlugins; [
-      {
-        plugin = nvim-lspconfig;
-        config = toLuaFile /config/nvim/plugin/lsp.lua;
-      }
+      plugins = with pkgs.vimPlugins; [
+        {
+          plugin = nvim-lspconfig;
+          config = toLuaFile "/config/nvim/plugin/lsp.lua";
+        }
 
-      {
-        plugin = comment-nvim;
-        config = toLua "require(\"Comment\").setup()";
-      }
+        {
+          plugin = comment-nvim;
+          config = toLua "require(\"Comment\").setup()";
+        }
 
-      {
-        plugin = gruvbox-nvim;
-        config = "colorscheme gruvbox";
-      }
-      neodev-nvim
-      nvim-cmp 
-      {
-        plugin = nvim-cmp;
-        config = toLuaFile /config/nvim/plugin/cmp.lua;
-      }
+        {
+          plugin = gruvbox-nvim;
+          config = "colorscheme gruvbox";
+        }
+        neodev-nvim
+        nvim-cmp 
+        {
+          plugin = nvim-cmp;
+          config = toLuaFile "/config/nvim/plugin/cmp.lua";
+        }
 
-      {
-        plugin = telescope-nvim;
-        config = toLuaFile /config/nvim/plugin/telescope.lua;
-      }
-      telescope-fzf-native-nvim
-      cmp_luasnip
-      cmp-nvim-lsp
-      luasnip
-      friendly-snippets
-      lualine-nvim
-      nvim-web-devicons
-      {
-        plugin = (nvim-treesitter.withPlugins (p: [
-          p.tree-sitter-nix
-          p.tree-sitter-vim
-          p.tree-sitter-bash
-          p.tree-sitter-lua
-          p.tree-sitter-python
-          p.tree-sitter-json
-        ]));
-        config = toLuaFile /config/nvim/plugin/treesitter.lua;
-      }
-      vim-nix
-
-      # {
-      #   plugin = vimPlugins.own-onedark-nvim;
-      #   config = "colorscheme onedark";
-      # }
-    ];
-  };
-    
+        {
+          plugin = telescope-nvim;
+          config = toLuaFile "/config/nvim/plugin/telescope.lua";
+        }
+        telescope-fzf-native-nvim
+        cmp_luasnip
+        cmp-nvim-lsp
+        luasnip
+        friendly-snippets
+        lualine-nvim
+        nvim-web-devicons
+        {
+          plugin = (nvim-treesitter.withPlugins (p: [
+            p.tree-sitter-nix
+            p.tree-sitter-vim
+            p.tree-sitter-bash
+            p.tree-sitter-lua
+            p.tree-sitter-python
+            p.tree-sitter-json
+          ]));
+          config = toLuaFile "/config/nvim/plugin/treesitter.lua";
+        }
+        vim-nix
+      ];
+    };
 
     ripgrep.enable = true;
+
     zsh = {
       enable = true;
       enableCompletion = true;
@@ -145,8 +142,10 @@ in
         path = "/home/chris/.zsh_history";
       };
     };
+
     starship = {
       enable = true;
       settings = pkgs.lib.importTOML "/home/chris/homemgr/config/starship.toml";
     };
   };
+}
