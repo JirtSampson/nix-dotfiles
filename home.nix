@@ -134,14 +134,4 @@
       settings = pkgs.lib.importTOML "/home/chris/homemgr/config/starship.toml";
     };
   };
-#home.file = {
-#    ".confi./config/nvim/lua/config/" = {
-#      source = /home/chris/homemgr/confi./config/nvim/lua/config;
-#      recursive = true;
-#    };
-#    ".confi./config/nvim/lua/plugins/" = {
-#      source = /home/chris/homemgr/confi./config/nvim/lua/plugins;
-#      recursive = true;
-#    };
-#  };
 }
