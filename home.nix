@@ -67,7 +67,6 @@ in
       '';
       extraPackages = with pkgs; [
         lua-language-server
-        rnix-lsp
         xclip
         wl-clipboard
       ];
