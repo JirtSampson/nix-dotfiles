@@ -22,11 +22,11 @@
   # Ensure config files are properly linked
   xdg.configFile = {
     "nvim/plugin" = {
-      source = ./config/nvim/plugin;
+      source = /config/nvim/plugin;
       recursive = true;
     };
     "nvim/options.lua" = {
-      source = ./config/nvim/options.lua;
+      source = /config/nvim/options.lua;
     };
   };
 
@@ -59,7 +59,7 @@
       enable = true;
       defaultEditor = true;
       extraLuaConfig = ''
-        ${builtins.readFile ./config/nvim/options.lua}
+        ${builtins.readFile /config/nvim/options.lua}
       '';
       extraPackages = with pkgs; [
         lua-language-server
@@ -71,7 +71,7 @@
     plugins = with pkgs.vimPlugins; [
       {
         plugin = nvim-lspconfig;
-        config = toLuaFile ./config/nvim/plugin/lsp.lua;
+        config = toLuaFile /config/nvim/plugin/lsp.lua;
       }
 
       {
@@ -87,12 +87,12 @@
       nvim-cmp 
       {
         plugin = nvim-cmp;
-        config = toLuaFile ./config/nvim/plugin/cmp.lua;
+        config = toLuaFile /config/nvim/plugin/cmp.lua;
       }
 
       {
         plugin = telescope-nvim;
-        config = toLuaFile ./config/nvim/plugin/telescope.lua;
+        config = toLuaFile /config/nvim/plugin/telescope.lua;
       }
       telescope-fzf-native-nvim
       cmp_luasnip
@@ -110,7 +110,7 @@
           p.tree-sitter-python
           p.tree-sitter-json
         ]));
-        config = toLuaFile ./config/nvim/plugin/treesitter.lua;
+        config = toLuaFile /config/nvim/plugin/treesitter.lua;
       }
       vim-nix
 
