@@ -18,6 +18,16 @@
     homeDirectory = "/home/chris";
     stateVersion = "23.11";
   };
+  
+  home.file = {
+    ".config/nvim/plugin" = {
+      source = ./config/nvim/plugin;
+      recursive = true;
+    };
+    ".config/nvim/options.lua" = {
+      source = ./config/nvim/options.lua;
+    };
+  };
 
   programs = {
     bat = {
